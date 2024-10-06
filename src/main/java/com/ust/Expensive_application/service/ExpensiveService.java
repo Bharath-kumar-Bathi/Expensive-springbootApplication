@@ -28,4 +28,11 @@ public class ExpensiveService {
                 .orElseThrow(()->new ExpensiveNotFoundException("Expensive not found with id: "+id));
         return expensive;
     }
+
+    public void deleteExpensive(UUID id) throws ExpensiveNotFoundException {
+        if (!repo.existsById(id)) {
+            throw new ExpensiveNotFoundException("Expense not found with ID: " + id);
+        }
+        repo.deleteById(id);
+    }
 }

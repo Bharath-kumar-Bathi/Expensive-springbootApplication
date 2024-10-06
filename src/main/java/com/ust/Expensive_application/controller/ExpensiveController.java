@@ -30,6 +30,16 @@ public class ExpensiveController {
     public ResponseEntity<Expensive> getExpensive(@PathVariable UUID id) throws ExpensiveNotFoundException {
         return  ResponseEntity.ok(expensiveService.getExpensive(id));
     }
+    @DeleteMapping("/deleteexpensive/{id}")
+    public ResponseEntity<Void> deleteExpensive(@PathVariable UUID id) {
+        try {
+            expensiveService.deleteExpensive(id);
+            return ResponseEntity.noContent().build(); // 204 No Content
+        } catch (ExpensiveNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // 404 Not Found
+        }
+    }
+
 
 
 }
